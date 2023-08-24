@@ -1,0 +1,32 @@
+development:
+  clients:
+    default:
+      database: iot
+      hosts:
+        - localhost:27017
+        # - 128.199.200.155:27017
+      options:
+        # The name of the user for authentication.
+        user: 'root'
+        # The password of the user for authentication.
+        password: 'rootpassword'
+        # The user's database roles.
+        roles:
+           - 'dbOwner'
+        auth_mech: :scram
+        auth_source: admin
+  options:
+  raise_not_found_error: false
+test:
+  clients:
+    default:
+      database: iot
+      hosts:
+        - localhost:27017
+        # - 128.199.200.155:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
+  options:
+  raise_not_found_error: false
