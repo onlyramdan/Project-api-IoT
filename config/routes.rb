@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post "/tambahuser" => "users#create"
   post "/updateuser" => "users#update"
   resources :users
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Defines the root path route ("/")
   # root "articles#index"
@@ -18,12 +19,17 @@ Rails.application.routes.draw do
   resources :user_roles
 
   # Modul
-  get
-  get
-  post 
-  post
+  post "/tambahmodul" => "moduls#create"
+  post "/updatemodul" => "moduls#update"
+  get "/moduls/all" => "moduls#index"
+  get "/modul/:id" => "moduls#show"
   resources :moduls
 
   # Akses Modul
+  post "/tambah/aksesmodul" => "akses_moduls#create"
+  post "/update/aksesmodul" => "akses_moduls#update"
+  get "/aksesmoduls/all" => "akses_moduls#index"
+  get "/aksesmodul/:id" => "akses_moduls#show"
+  resources :akses_moduls
   
 end

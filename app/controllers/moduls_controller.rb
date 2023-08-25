@@ -46,6 +46,6 @@ class ModulsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def modul_params
-      params.require(:modul).permit(:nama, :url, :status)
+      params.permit(:nama, :url, :status ,:id)
     end
 end

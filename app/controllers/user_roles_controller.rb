@@ -5,7 +5,6 @@ class UserRolesController < ApplicationController
   def index
     @user_roles = UserRole.all
 
-    
     render json: @user_roles
   end
 
@@ -47,6 +46,6 @@ class UserRolesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_role_params
-      params.permit(:user_role, :user_id)
+      params.permit(:user_role, :user_id, :id)
     end
 end
