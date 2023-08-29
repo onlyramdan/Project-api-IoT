@@ -4,10 +4,33 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-
     render json: @users
   end
 
+  def login
+    
+  end
+  
+  def show_role
+    user = User.find(params["id"])
+    if user.present?
+      data = {
+        id: user._id.to_s,
+        email:  user.email,
+        role: user.user_role.user_role
+      }
+    end
+    render json: data
+
+  end
+
+  # if @user.present?
+  #   data = {
+  #     id: @user._id.to_s,
+  #     email: @user.email,
+  #     role: @user.user_role_id
+  #   }
+  # end
   # GET /users/1
   def show
     render json: @user
@@ -46,6 +69,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:email, :password, :nama, :status, :id)
+      params.permit(:email, :password, :nama, :status, :user_role_id, :id)
     end
 end

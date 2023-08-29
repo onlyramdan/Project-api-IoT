@@ -5,6 +5,6 @@ class User
   field :password, type: String
   field :nama, type: String
   field :status, type: String
-
-  has_many :user_role
+  
+  belongs_to :user_role, class_name: 'UserRole', foreign_key: 'user_role_id'
 end
