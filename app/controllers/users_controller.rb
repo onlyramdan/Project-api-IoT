@@ -6,10 +6,6 @@ class UsersController < ApplicationController
     @users = User.all
     render json: @users
   end
-
-  def login
-    
-  end
   
   def show_role
     user = User.find(params["id"])

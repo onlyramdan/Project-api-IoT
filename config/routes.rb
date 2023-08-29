@@ -42,5 +42,10 @@ Rails.application.routes.draw do
   resources :alats
 
   # Monitoring
-  
+
+
+  #login
+  post "/login" => "login#login"
+
+  resources :login
 end
