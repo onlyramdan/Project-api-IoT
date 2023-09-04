@@ -3,7 +3,7 @@ development:
     default:
       database: iot
       hosts:
-        - localhost:27017
+        - 103.189.235.124:27017
       options:
         # The name of the user for authentication.
         user: 'root'
@@ -21,7 +21,7 @@ test:
     default:
       database: iot
       hosts:
-        - localhost:27017
+        - 103.189.235.124:27017
       options:
         read:
           mode: :primary

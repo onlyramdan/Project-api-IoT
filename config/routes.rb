@@ -43,10 +43,7 @@ Rails.application.routes.draw do
 
   # Monitoring
 
-
   #login
   post "/login" => "login#login"
-
-  
   resources :login
 end
