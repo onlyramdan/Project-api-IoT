@@ -29,7 +29,16 @@ class UsersController < ApplicationController
   # end
   # GET /users/1
   def show
-    render json: @user
+    if @user.present?
+      data = {
+        id: @user["_id"].to_s,
+        email: @user['email'],
+        nama: @user['nama'],
+        password: @user['password'],
+        user_role: @user.user_role['user_role']
+      }
+      render json: data
+    end
   end
 
   # POST /users
