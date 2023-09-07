@@ -12,6 +12,9 @@ gem "puma", "~> 5.0"
 #Mongo
 gem 'mongoid', '~> 7.0'
 
+#kiminari
+gem 'kaminari-mongoid'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 

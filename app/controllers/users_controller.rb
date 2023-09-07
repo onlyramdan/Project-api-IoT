@@ -63,9 +63,17 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: @user
+      render json:{
+        status: true,
+        massage: "Update berhasil",
+        content: @user
+      }
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: {
+        status: false,
+        massage: "Edit tidak berhasil",
+        content: nil
+      }
     end
   end
 
@@ -85,3 +93,4 @@ class UsersController < ApplicationController
       params.permit(:email, :password, :nama, :status, :user_role_id, :id)
     end
 end
+

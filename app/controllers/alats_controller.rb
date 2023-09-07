@@ -11,7 +11,7 @@ class AlatsController < ApplicationController
   # GET /alats/1
   def show
     render json: @alat
-  end
+  endcle
 
   # POST /alats
   def create

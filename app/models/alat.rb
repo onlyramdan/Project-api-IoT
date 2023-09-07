@@ -4,4 +4,6 @@ class Alat
   field :nama_alat, type: String
   field :lokasi, type: String
   field :status, type: String
+
+  has_many :monitorings, class_name: "Monitoring"
 end

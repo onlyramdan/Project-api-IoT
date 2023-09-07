@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :monitorings
   
   # User
   get "/users/all" => "users#index"
@@ -42,6 +43,10 @@ Rails.application.routes.draw do
   resources :alats
 
   # Monitoring
+  post "/tambah/monitoring" => "monitorings#create"
+  get "/monitoring/all" => "monitorings#index"
+  get "/alat_monitoring/:alat_id" => "monitorings#show_monitoring"
+  resources :monitorings
 
   #login
   post "/login" => "login#login"

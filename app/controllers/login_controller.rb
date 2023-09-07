@@ -14,7 +14,7 @@ class LoginController < ApplicationController
                 if res_user['status'].to_s != "1"
                     render json: {
                         status: false,
-                        message: "User tidak aktif!, Silahkan hubungin administrator",
+                        message: "User tidak aktif!, Silahkan hubungi administrator",
                         content: nil
                     } 
                 else
