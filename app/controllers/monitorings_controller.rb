@@ -37,7 +37,6 @@ class MonitoringsController < ApplicationController
       meta: meta
     }
     render json: result
-    # return
   end
 # GET /monitorings/1
   def show
