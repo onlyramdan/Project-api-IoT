@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "/show_role" => "users#show_role"
   post "/tambahuser" => "users#create"
   post "/updateuser" => "users#update"
+  post "/hapususer/:id" => "users#destroy" # Delete
   resources :users
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

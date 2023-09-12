@@ -3,8 +3,38 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-    render json: @users
+    @page = user_params["page"].present? ? params["page"].to_i : 1
+    @limit = user_params["limit"].present? ? params["limit"].to_i : 10
+    @users = User.all.page(@page).per(@limit)
+    data_user = []
+    if @users.present?
+      @users.each do |user|
+        data_array = {
+          id: user._id.to_s,
+          nama: user.nama,
+          email: user.email,
+          role: user.user_role.user_role,
+          status: user.status
+        }
+        data_user.push(data_array)
+      end
+    else
+      data_alat = nil
+    end
+    meta ={
+      next_page: @users.next_page,
+      prev_page: @users.prev_page,
+      current_page: @users.current_page,
+      total_pages: @users.total_pages
+    }
+    result = {
+      status: true,
+      messages: 'Sukses',
+      content: data_user,
+      meta: meta
+    }
+    render json: result
+    return
   end
   
   def show_role
@@ -36,6 +66,7 @@ class UsersController < ApplicationController
         email: @user['email'],
         nama: @user['nama'],
         password: @user['password'],
+        user_role_id: @user['user_role_id'],
         user_role: @user.user_role['user_role']
       }
       render json: data
@@ -79,7 +110,19 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    if @user.destroy(user_params)
+      render json: {
+        status: true,
+        message: "Berhasil hapus",
+        content: nil
+      }
+    else
+      render json: {
+          status: false,
+          message: "Gagal hapus",
+          content: nil
+        }
+    end
   end
 
   private
@@ -90,7 +133,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:email, :password, :nama, :status, :user_role_id, :id)
+      params.permit(:email, :password, :nama, :status, :user_role_id , :id)
     end
 end
 

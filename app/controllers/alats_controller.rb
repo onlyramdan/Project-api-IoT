@@ -78,7 +78,20 @@ class AlatsController < ApplicationController
 
   # DELETE /alats/1
   def destroy
-    @alat.destroy
+     if @alat.destroy
+        render json: {
+          status: true,
+          message: "Berhasil hapus",
+          content: nil
+        }
+      else
+        render json: {
+          status: false,
+          message: "Gagal hapus",
+          content: nil
+        }
+    end
+
   end
 
   private
