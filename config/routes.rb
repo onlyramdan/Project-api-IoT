@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :monitorings
   
   # User
   get "/users/all" => "users#index"
@@ -42,14 +41,22 @@ Rails.application.routes.draw do
   get "/alat/:id" => "alats#show" # Read by Id
   post "/hapusalat/:id" => "alats#destroy" # Delete
   resources :alats
-
+  
   # Monitoring
   post "/tambah/monitoring" => "monitorings#create"
   get "/monitoring/all" => "monitorings#index"
+  post "/data/monitoring" => "monitorings#get_data"
   get "/alat_monitoring/:alat_id" => "monitorings#show_monitoring"
   resources :monitorings
-
+  
   #login
   post "/login" => "login#login"
   resources :login
+
+  #mqtt
+  get "/connect" => "mqtt#connect_to_mqtt" 
+  get "/baca" => "mqtt#subscribe_to_topic"
+  get "/mqtt/off" => "mqtt#mqtt_off"
+  post "/mqtt/lampu/:id" => "mqtt#lampu"
+  resources :mqtt
 end

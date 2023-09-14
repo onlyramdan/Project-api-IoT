@@ -9,6 +9,9 @@ gem "rails", "~> 7.0.7", ">= 7.0.7.2"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+#MQTT
+gem 'mqtt', '~> 0.4.0'
+
 #Mongo
 gem 'mongoid', '~> 7.0'
 

@@ -38,6 +38,33 @@ class MonitoringsController < ApplicationController
     }
     render json: result
   end
+  def get_data
+    data_monitoring = Monitoring.where(created_at: params['tgl_mulai']..params['tgl_akhir'])
+    data = []
+    if data_monitoring.present?
+      data_monitoring.each do |monitoring|
+        array = {
+          tanggal: (monitoring.created_at.to_time).strftime("%Y-%m-%d"),
+          jam: (monitoring.created_at.to_time).strftime("%H:%M:%S"),
+          suhu: monitoring.suhu,
+          kelembaban: monitoring.kelembaban,
+          kebisingan: monitoring.kebisingan,
+          lux: monitoring.lux,
+          debu: monitoring.debu,
+          amonia: monitoring.amonia,
+          alat: monitoring.alat.nama_alat
+        }
+        data.push(array)
+      end  
+    else
+      data = nil
+    end
+    render json: {
+      status: true,
+      messages: 'Sukses',
+      content: data,
+    }
+  end
 # GET /monitorings/1
   def show
     render json: @monitoring
