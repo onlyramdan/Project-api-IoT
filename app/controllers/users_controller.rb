@@ -49,16 +49,6 @@ class UsersController < ApplicationController
     render json: data
 
   end
-
-  # if @user.present?
-  #   data = {
-  #     id: @user._id.to_s,
-  #     email: @user.email,
-  #     role: @user.user_role_id
-  #   }
-  # end
-
-  # GET /users/1
   def show
     if @user.present?
       data = {
