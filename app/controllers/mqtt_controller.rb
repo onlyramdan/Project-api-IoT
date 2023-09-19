@@ -13,7 +13,7 @@ class MqttController < ApplicationController
   end
 
   def subscribe_to_topic
-
+    
     topic, message = @client.get("outTopic") # Menunggu hingga ada pesan masuk
     # Di sini Anda dapat memproses pesan sesuai kebutuhan Anda
     if message
