@@ -13,20 +13,18 @@ class MqttController < ApplicationController
   end
 
   def subscribe_to_topic
-    
-    topic, message = @client.get("outTopic") # Menunggu hingga ada pesan masuk
+    topic = params["topic"]
+    topic, message = @client.get(topic) # Menunggu hingga ada pesan masuk
     # Di sini Anda dapat memproses pesan sesuai kebutuhan Anda
     if message
       # Jika ada pesan yang diterima, Anda dapat mengonversinya ke JSON jika sesuai
       json_data = JSON.parse(message)
-  
       # Sekarang, Anda dapat menggunakan json_data untuk pemrosesan lebih lanjut
       render json: json_data
     else
       # Tindakan yang akan diambil jika tidak ada pesan yang diterima
       render json: { error: 'No message received' }
     end
-    
   end
 
   def mqtt_off

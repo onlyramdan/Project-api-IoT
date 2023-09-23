@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   post "/updatealat" => "alats#update" #Update
   get "/alats/all" => "alats#index" # Read All
   get "/alat/:id" => "alats#show" # Read by Id
+  get "/aktifalat" => "alats#aktifalat"
   post "/hapusalat/:id" => "alats#destroy" # Delete
   resources :alats
   

@@ -39,7 +39,7 @@ class MonitoringsController < ApplicationController
     render json: result
   end
   def get_data
-    data_monitoring = Monitoring.where(created_at: params['tgl_mulai']..params['tgl_akhir'])
+    data_monitoring = Monitoring.where(created_at: params['tgl_mulai']..params['tgl_akhir'].to_date.end_of_day)
     data = []
     if data_monitoring.present?
       data_monitoring.each do |monitoring|

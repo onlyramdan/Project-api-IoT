@@ -40,6 +40,27 @@ class AlatsController < ApplicationController
     render json: @alat
   end
 
+  def aktifalat
+    data_alat = []
+    @alats = Alat.where(status: "1")
+    if @alats.present?
+      @alats.each do |alat|
+        data_array = {
+          id: alat._id.to_s,
+          nama_alat: alat.nama_alat,
+        }
+        data_alat.push(data_array)
+      end
+    else 
+      data_alat = nil
+    end
+    result = {
+      status: true,
+      messages: 'Sukses',
+      content: data_alat
+    }
+    render json: result
+  end
   # POST /alats
   def create
     @alat = Alat.new(alat_params)
