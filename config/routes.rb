@@ -59,5 +59,6 @@ Rails.application.routes.draw do
   get "/baca" => "mqtt#subscribe_to_topic"
   get "/mqtt/off" => "mqtt#mqtt_off"
   post "/mqtt/lampu/:id" => "mqtt#lampu"
+  post "/mqtt/save_db"
   resources :mqtt
 end
