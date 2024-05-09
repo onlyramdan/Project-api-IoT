@@ -1,30 +1,30 @@
 development:
   clients:
     default:
-      database: iot
+      database: iot-ramdan
       hosts:
-        - 103.189.235.124:27017
+        - 103.59.95.173:27017
       options:
         # The name of the user for authentication.
-        user: 'root'
+        user: 'iot'
         # The password of the user for authentication.
-        password: 'rootpassword'
+        password: 'password'
         # The user's database roles.
         roles:
            - 'dbOwner'
         auth_mech: :scram
         auth_source: admin
   options:
-  raise_not_found_error: false
+    raise_not_found_error: false
 test:
   clients:
     default:
-      database: iot
+      database: iot-ramdan
       hosts:
-        - 103.189.235.124:27017
+        - 103.59.95.173:27017
       options:
         read:
           mode: :primary
         max_pool_size: 1
   options:
-  raise_not_found_error: false
+    raise_not_found_error: false

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get "/alat/:id" => "alats#show" # Read by Id
   get "/aktifalat" => "alats#aktifalat"
   post "/hapusalat/:id" => "alats#destroy" # Delete
+  get "/find_alat" => "alats#cari_alat"
   resources :alats
   
   # Monitoring
@@ -48,6 +49,7 @@ Rails.application.routes.draw do
   get "/monitoring/all" => "monitorings#index"
   post "/data/monitoring" => "monitorings#get_data"
   get "/alat_monitoring/:alat_id" => "monitorings#show_monitoring"
+  get "/monitorings/monitoring_perlokasi"
   resources :monitorings
   
   #login

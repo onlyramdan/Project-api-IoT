@@ -40,6 +40,26 @@ class AlatsController < ApplicationController
     render json: @alat
   end
 
+  def cari_alat
+    @data_alat = Alat.find_by(id: params['id'])
+    if @data_alat.present?
+      data = {
+        id_alat: @data_alat._id.to_s,
+        id: @data_alat._id.to_s,
+        nama_alat: @data_alat.nama_alat,
+        lokasi: @data_alat.lokasi,
+      }
+    else
+      data = {
+        id_alat: "off",
+        id: "-",
+        nama_alat: "Pilih Alat",
+        lokasi: "-",
+      }
+    end
+    render json: data
+  end
+
   def aktifalat
     data_alat = []
     @alats = Alat.where(status: "1")
@@ -48,6 +68,7 @@ class AlatsController < ApplicationController
         data_array = {
           id: alat._id.to_s,
           nama_alat: alat.nama_alat,
+          lokasi: alat.lokasi
         }
         data_alat.push(data_array)
       end
@@ -64,7 +85,6 @@ class AlatsController < ApplicationController
   # POST /alats
   def create
     @alat = Alat.new(alat_params)
-
     if @alat.save
       render json: {
         status: true,

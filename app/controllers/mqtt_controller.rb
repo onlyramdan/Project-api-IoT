@@ -4,14 +4,14 @@ class MqttController < ApplicationController
   before_action :connect_to_mqtt, only: [:subscribe_to_topic, :mqtt_off, :lampu, :save_db]
   def connect_to_mqtt
     @client = MQTT::Client.connect(
-      host: '103.189.235.124',
+      host: '103.59.95.173',
       port: 1883,
-      username: 'onlyramdan',
-      password: 'Sarimiisi8'
+      username: 'iot',
+      password: 'password'
     )
     Rails.logger.info 'Connected'
   end
-
+  
   def subscribe_to_topic
     topic = params["topic"]
     topic, message = @client.get(topic) # Menunggu hingga ada pesan masuk
@@ -21,12 +21,10 @@ class MqttController < ApplicationController
       data_alat = JSON.parse(message)
       data = {
         id: topic,
-        suhu: data_alat['ds'],
-        kelembaban: data_alat['dh'],
-        kebisingan: data_alat['ky'],
-        lux: data_alat['lx'],
-        debu: data_alat['db'],
-        amonia: data_alat['co2']
+        suhu: data_alat['suhu'],
+        kelembapan: data_alat['kelembaban'],
+        airQuality: data_alat['air_q'],
+        time: Time.now.strftime("%H:%M:%S")
       }
       render json: data
     else
@@ -45,12 +43,9 @@ class MqttController < ApplicationController
           data_alat = JSON.parse(message)
           data = {
             alat_id: topic,
-            suhu: data_alat['ds'],
-            kelembaban: data_alat['dh'],
-            kebisingan: data_alat['ky'],
-            lux: data_alat['lx'],
-            debu: data_alat['db'],
-            amonia: data_alat['co2']
+            suhu: data_alat['suhu'],
+            kelembaban: data_alat['kelembaban'],
+            airQuality: data_alat['air_q']
           }
           @monitoring = Monitoring.new(data)
           if @monitoring.save

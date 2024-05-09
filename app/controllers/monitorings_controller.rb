@@ -1,5 +1,35 @@
 class MonitoringsController < ApplicationController
   before_action :set_monitoring, only: %i[ show update destroy ]
+
+  def monitoring_perlokasi
+    @page = monitoring_params["page"].present? ? params["page"].to_i : 1
+    @limit = monitoring_params["limit"].present? ? params["limit"].to_i : 10
+    @alat_aktif = Alat.where(status: "1").page(@page).per(@limit)
+    @data_perlokasi = []
+  
+    if @alat_aktif.present?
+      @alat_aktif.each do |alat|
+        data_monitoring_perlokasi = Monitoring.where(alat_id: alat.id).order(created_at: :desc).first        
+        if data_monitoring_perlokasi.present?
+          data_monitoring = {
+            suhu: data_monitoring_perlokasi.suhu,
+            kelembaban: data_monitoring_perlokasi.kelembaban,
+            airQuality: data_monitoring_perlokasi.airQuality
+          }
+          data_array = {
+            lokasi: alat.lokasi,
+            nama_alat: alat.nama_alat,
+            monitoring: data_monitoring
+          }
+          @data_perlokasi.push(data_array)
+        end
+      end
+    end
+  
+    render json: @data_perlokasi
+  end
+  
+
   # GET /monitorings
   def index
     @page = monitoring_params["page"].present? ? params["page"].to_i : 1
@@ -13,10 +43,7 @@ class MonitoringsController < ApplicationController
         waktu: monitoring.created_at,
         suhu: monitoring.suhu,
         kelembaban: monitoring.kelembaban,
-        kebisingan: monitoring.kebisingan,
-        lux: monitoring.lux,
-        debu: monitoring.debu,
-        amonia: monitoring.amonia,
+        airQuality: monitoring.airQuality,
         alat: monitoring.alat.nama_alat
       }
       data_monitoring.push(data_array)
@@ -48,10 +75,7 @@ class MonitoringsController < ApplicationController
           jam: (monitoring.created_at.to_time).strftime("%H:%M:%S"),
           suhu: monitoring.suhu,
           kelembaban: monitoring.kelembaban,
-          kebisingan: monitoring.kebisingan,
-          lux: monitoring.lux,
-          debu: monitoring.debu,
-          amonia: monitoring.amonia,
+          airQuality: monitoring.airQuality,
           alat: monitoring.alat.nama_alat
         }
         data.push(array)
@@ -80,10 +104,7 @@ class MonitoringsController < ApplicationController
           alat: monitoring.alat.nama_alat,
           suhu: monitoring.suhu,
           kelembaban: monitoring.kelembaban,
-          kebisingan: monitoring.kebisingan,
-          lux: monitoring.lux,
-          debu: monitoring.debu,
-          amonia: monitoring.amonia,
+          airQuality: monitoring.airQuality
         }
         data.push(array)
       end
@@ -124,6 +145,6 @@ class MonitoringsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def monitoring_params
-      params.permit(:suhu, :kelembaban, :kebisingan, :lux, :debu, :amonia, :alat_id, :id, :page, :keyword, :limit)
+      params.permit(:suhu, :kelembaban, :airQuality, :alat_id, :id, :page, :keyword, :limit)
     end
 end
