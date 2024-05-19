@@ -18,6 +18,7 @@ class MonitoringsController < ApplicationController
           }
           data_array = {
             lokasi: alat.lokasi,
+            waktu: alat.created_at,
             nama_alat: alat.nama_alat,
             monitoring: data_monitoring
           }
