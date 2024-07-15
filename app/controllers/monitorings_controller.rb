@@ -4,7 +4,7 @@ class MonitoringsController < ApplicationController
   def monitoring_perlokasi
     @page = monitoring_params["page"].present? ? params["page"].to_i : 1
     @limit = monitoring_params["limit"].present? ? params["limit"].to_i : 10
-    @alat_aktif = Alat.where(status: "1").page(@page).per(@limit)
+    @alat_aktif = Alat.all.page(@page).per(@limit)
     @data_perlokasi = []
   
     if @alat_aktif.present?
@@ -14,11 +14,11 @@ class MonitoringsController < ApplicationController
           data_monitoring = {
             suhu: data_monitoring_perlokasi.suhu,
             kelembaban: data_monitoring_perlokasi.kelembaban,
+            waktu: data_monitoring_perlokasi.created_at,
             airQuality: data_monitoring_perlokasi.airQuality
           }
           data_array = {
             lokasi: alat.lokasi,
-            waktu: alat.created_at,
             nama_alat: alat.nama_alat,
             monitoring: data_monitoring
           }
@@ -36,7 +36,7 @@ class MonitoringsController < ApplicationController
     @page = monitoring_params["page"].present? ? params["page"].to_i : 1
     @limit = monitoring_params["limit"].present? ? params["limit"].to_i : 10
     # data monitoring
-    @monitorings = Monitoring.all.page(@page).per(@limit)
+    @monitorings = Monitoring.all.page(@page).per(@limit).order(created_at: :desc)
     data_monitoring = []
     if @monitorings.present?
       @monitorings.each do |monitoring|
